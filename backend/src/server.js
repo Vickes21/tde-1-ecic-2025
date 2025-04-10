@@ -13,9 +13,14 @@ const application = express();
 const PORTA = process.env.PORT || 3000;
 
 // Configuração de middlewares globais
-application.use(cors());
-application.use(bodyParser.json());
-application.use(bodyParser.urlencoded({ extended: true }));
+application.use(cors({
+  origin: 'http://localhost:5173',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
+application.use(express.json());
+application.use(express.urlencoded({ extended: true }));
 
 // Rotas
 application.use('/api/products', productRoutes);
